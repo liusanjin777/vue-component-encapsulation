@@ -9,7 +9,7 @@ const { register } = useModalInner((data: any) => {
 </script>
 
 <template>
-  <BasicModal v-bind="$attrs" @register="register" />
+  <BasicModal v-bind="$attrs" cancel-text="111" @register="register" />
 </template>
 
 <style scoped>

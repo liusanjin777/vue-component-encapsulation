@@ -15,7 +15,7 @@ const { openModal } = methods
 <template>
   <Button @click="open">打开弹框</Button>
 
-  <ModalTest @register="register" />
+  <ModalTest title="test" @register="register" />
 </template>
 
 <style scoped>
