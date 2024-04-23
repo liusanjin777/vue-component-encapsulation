@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { getCurrentInstance } from 'vue'
-import { BasicModal } from '@/components/Modal/index'
+import { BasicModal, useModalInner } from '@/components/Modal/index'
 
 defineEmits(['register'])
 
-const instance = getCurrentInstance()
-
-const register = (modalInstance: any, uuid: string) => {
-  instance?.emit('register', modalInstance, uuid)
-}
+const { register } = useModalInner((data: any) => {
+  console.log(data)
+})
 </script>
 
 <template>

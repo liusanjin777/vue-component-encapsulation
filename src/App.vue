@@ -4,7 +4,7 @@ import { useModal } from '@/components/Modal/index'
 import ModalTest from '@/views/Modal/ModalTest.vue'
 
 const open = () => {
-  openModal()
+  openModal(true, { test: '打开了弹框' })
 }
 
 const { register, methods } = useModal()

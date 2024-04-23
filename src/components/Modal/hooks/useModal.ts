@@ -10,26 +10,30 @@ const dataTransfer = reactive<any>({})
 export const useModal = () => {
   const uid = ref()
   const modal = ref<Nullable<any>>(null)
+
+  // 接受弹框组件发射register事件，记录参数
   const register = (modalMethods: any, uuid: string) => {
     modal.value = unref(modalMethods)
 
     uid.value = uuid
   }
-
+  // 打开弹框事件
   const openModal = (visible = true, data?: any) => {
+    // dataTransfer将需要传值的数据利用组件的uid保存起来
     dataTransfer[unref(uid)] = toRaw(data)
-    getInstance().setModalProps({
+    // 改变弹框的props
+    getInstanceMethods().setModalProps({
       visible
     })
   }
-
+  // 关闭弹框
   const closeModal = () => {
-    getInstance().setModalProps({
+    getInstanceMethods().setModalProps({
       visible: false
     })
   }
-
-  const getInstance = () => {
+  // 获取组件实例方法
+  const getInstanceMethods = () => {
     if (!unref(modal)) {
       throw new Error('组件未实例化！')
     }
@@ -51,13 +55,14 @@ export const useModalInner = (callBack?: any) => {
   const instance = getCurrentInstance()
   const modal = ref<Nullable<any>>(null)
 
-  const getInstance = () => {
+  const getInstanceMethods = () => {
     if (!unref(modal)) {
       throw new Error('组件未实例化！')
     }
     return unref(modal)
   }
-
+  // 接收基础弹框组件的发射事件，并再次发射给使用弹框的组件
+  // useModal里的register接收的是这个事件
   const register = (modalInstance: any, uuid: string) => {
     modal.value = modalInstance
     uid.value = uuid
@@ -76,7 +81,7 @@ export const useModalInner = (callBack?: any) => {
 
   // 关闭弹框
   const closeModal = () => {
-    getInstance().setModalProps({
+    getInstanceMethods().setModalProps({
       visible: false
     })
   }
